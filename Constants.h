@@ -11,9 +11,9 @@ namespace
 	static const UINT32 PWM_DRIVE_FR = 4;
 	static const UINT32 PWM_DRIVE_RR = 3;
 	
-	static const UINT32 ROLLER = 6;
+	static const UINT32 PWM_ROLLER = 6;
 	
-	static const UINT32 WINCH = 5;
+	static const UINT32 PWM_WINCH = 5;
 	
 	//Relays
 	static const UINT32 RELAY_COMPRESSOR = 1;
