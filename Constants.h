@@ -14,6 +14,10 @@ namespace
 	
 	//DIO
 	static const int DIO_PRESSURE = 2;
+	static const int DIO_ENCODER_DRIVE_LEFT_A = 7;
+	static const int DIO_ENCODER_DRIVE_LEFT_B = 8;
+	static const int DIO_ENCODER_DRIVE_RIGHT_A = 5;
+	static const int DIO_ENCODER_DRIVE_RIGHT_B = 6;
 }
 
 #endif

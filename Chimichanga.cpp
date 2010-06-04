@@ -6,6 +6,7 @@
 #include "RobotDrive.h"
 #include "Joystick.h"
 #include "Compressor.h"
+#include "Encoder.h"
 
 /**
  * This is a copy of the robot of Team 1261's 2010 robot - the Chimichanga
@@ -17,6 +18,9 @@ class Chimichanga : public IterativeRobot
 {
 	RobotDrive *drivetrain;
 	Compressor *compressor;
+	
+	Encoder *leftDrivetrainEncoder;
+	Encoder *rightDrivetrainEncoder;
 	
 	Joystick *joystick;
 	
@@ -30,6 +34,9 @@ public:
 		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, true);
 		
 		compressor = new Compressor(DIO_PRESSURE, RELAY_COMPRESSOR);
+		
+		leftDrivetrainEncoder = new Encoder(DIO_ENCODER_DRIVE_LEFT_A, DIO_ENCODER_DRIVE_LEFT_B);
+		rightDrivetrainEncoder = new Encoder(DIO_ENCODER_DRIVE_RIGHT_A, DIO_ENCODER_DRIVE_RIGHT_B);
 		
 		joystick = new Joystick(1);
 	}
@@ -66,6 +73,9 @@ public:
 
 		compressor->Start();
 		
+		leftDrivetrainEncoder->Start();
+		rightDrivetrainEncoder->Start();
+		
 		printf("Robot teleop initialization complete.\n");
 	}
 	
@@ -98,6 +108,9 @@ public:
 		
 		//Drive the robot
 		drivetrain->ArcadeDrive(joystick->GetRawAxis(4),joystick->GetRawAxis(2));
+		
+		printf("Left Side: %f \n", leftDrivetrainEncoder->GetRate());
+		printf("Right Side: %f \n", rightDrivetrainEncoder->GetRate());
 	}
 };
 
