@@ -21,8 +21,10 @@ public:
 	Chimichanga(void)
 	{
 		drivetrain = new RobotDrive(PWM_DRIVE_FL, PWM_DRIVE_RL, PWM_DRIVE_FR, PWM_DRIVE_RR);
-		drivetrain->SetInvertedMotor(drivetrain->kFrontLeftMotor, true);
-		drivetrain->SetInvertedMotor(drivetrain->kRearLeftMotor, true);
+		drivetrain->SetInvertedMotor(drivetrain->kFrontLeftMotor, false);
+		drivetrain->SetInvertedMotor(drivetrain->kRearLeftMotor, false);
+		drivetrain->SetInvertedMotor(drivetrain->kFrontRightMotor, true);
+		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, true);
 		
 		joystick = new Joystick(1);
 	}
@@ -56,6 +58,8 @@ public:
 	}
 	
 	void TeleopPeriodic(void) {
+		GetWatchdog().Feed();
+		
 		//Drive the robot
 		drivetrain->ArcadeDrive(joystick->GetRawAxis(4),joystick->GetRawAxis(2));
 	}
