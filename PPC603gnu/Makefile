@@ -162,7 +162,12 @@ Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.o : C:/User
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-OBJECTS_Chimichanga_partialImage = Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.o
+Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.o : C:/Users/Tanner/Desktop/FRC\ C++/Chimichanga/Kicker.cpp
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
+OBJECTS_Chimichanga_partialImage = Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.o \
+	 Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.o
 
 Chimichanga_partialImage/$(MODE_DIR)/Chimichanga_partialImage.o : $(OBJECTS_Chimichanga_partialImage)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X  -o "$@" $(OBJECTS_Chimichanga_partialImage) $(LIBPATH) $(LIBS) $(ADDED_LIBPATH) $(ADDED_LIBS)  && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -174,7 +179,7 @@ _clean :: Chimichanga_partialImage/$(MODE_DIR)/Chimichanga_partialImage_clean
 Chimichanga_partialImage/$(MODE_DIR)/Chimichanga_partialImage_clean : 
 	$(TRACE_FLAG)if [ -d "Chimichanga_partialImage" ]; then cd "Chimichanga_partialImage"; rm -rf $(MODE_DIR); fi
 
-DEP_FILES := Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.d
+DEP_FILES := Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.d Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.d
 -include $(DEP_FILES)
 
 

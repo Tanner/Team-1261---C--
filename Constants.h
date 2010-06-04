@@ -31,9 +31,15 @@ namespace
 	
 	static const UINT32 DIO_ROLLER_SWITCH = 12;
 	
+	static const UINT32 DIO_KICKER_SWITCH = 1;
+	
 	//Solenoids
 	static const UINT32 SOLENOID_SAIL_A = 3;
 	static const UINT32 SOLENOID_SAIL_B = 4;
+	
+	//Joysticks
+	static const UINT32 JOYSTICK_DRIVE = 1;
+	static const UINT32 JOYSTICK_KICK = 2;
 }
 
 #endif

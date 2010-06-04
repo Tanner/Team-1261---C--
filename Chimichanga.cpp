@@ -1,6 +1,5 @@
-//#include "WPILib.h"
-
 #include "Constants.h"
+#include "Kicker.h"
 
 #include "IterativeRobot.h"
 #include "RobotDrive.h"
@@ -22,11 +21,14 @@ class Chimichanga : public IterativeRobot
 	Encoder *leftDrivetrainEncoder;
 	Encoder *rightDrivetrainEncoder;
 	
-	Joystick *joystick;
+	Joystick *driverJoystick;
+	
+	Kicker *kicker;
 	
 public:
 	Chimichanga(void)
 	{
+		//Hardware
 		drivetrain = new RobotDrive(PWM_DRIVE_FL, PWM_DRIVE_RL, PWM_DRIVE_FR, PWM_DRIVE_RR);
 		drivetrain->SetInvertedMotor(drivetrain->kFrontLeftMotor, false);
 		drivetrain->SetInvertedMotor(drivetrain->kRearLeftMotor, false);
@@ -35,10 +37,14 @@ public:
 		
 		compressor = new Compressor(DIO_PRESSURE, RELAY_COMPRESSOR);
 		
+		//Sensors
 		leftDrivetrainEncoder = new Encoder(DIO_ENCODER_DRIVE_LEFT_A, DIO_ENCODER_DRIVE_LEFT_B);
 		rightDrivetrainEncoder = new Encoder(DIO_ENCODER_DRIVE_RIGHT_A, DIO_ENCODER_DRIVE_RIGHT_B);
 		
-		joystick = new Joystick(1);
+		driverJoystick = new Joystick(JOYSTICK_DRIVE);
+		
+		//Systems
+		kicker = new Kicker();
 	}
 	
 	/********************************* INIT FUNCTIONS *********************************/
@@ -94,20 +100,29 @@ public:
 	
 	/******************************** CONTINUOUS ROUTINES ********************************/
 	void DisabledContinuous(void) {
+		printf("Running in disabled continuous...\n");
+		
 		//Stop the presses...
 		drivetrain->Drive(0, 0);
 		compressor->Stop();
 	}
 	
 	void AutonomousContinuous(void) {
+		printf("Running in autonomous continuous...\n");
+		
 		//Stuff
 	}
 	
 	void TeleopContinuous(void) {
+		printf("Running in teleop continuous...\n");
+		
 		GetWatchdog().Feed();
 		
 		//Drive the robot
-		drivetrain->ArcadeDrive(joystick->GetRawAxis(4),joystick->GetRawAxis(2));
+		drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(4),driverJoystick->GetRawAxis(2));
+		
+		//Run the kicker
+		kicker->Act();
 		
 		printf("Left Side: %f \n", leftDrivetrainEncoder->GetRate());
 		printf("Right Side: %f \n", rightDrivetrainEncoder->GetRate());
