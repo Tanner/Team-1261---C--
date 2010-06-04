@@ -5,6 +5,7 @@
 #include "IterativeRobot.h"
 #include "RobotDrive.h"
 #include "Joystick.h"
+#include "Compressor.h"
 
 /**
  * This is a copy of the robot of Team 1261's 2010 robot - the Chimichanga
@@ -15,6 +16,8 @@
 class Chimichanga : public IterativeRobot
 {
 	RobotDrive *drivetrain;
+	Compressor *compressor;
+	
 	Joystick *joystick;
 	
 public:
@@ -26,31 +29,49 @@ public:
 		drivetrain->SetInvertedMotor(drivetrain->kFrontRightMotor, true);
 		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, true);
 		
+		compressor = new Compressor(DIO_PRESSURE, RELAY_COMPRESSOR);
+		
 		joystick = new Joystick(1);
 	}
 	
 	/********************************* INIT FUNCTIONS *********************************/
 	void RobotInit(void) {
+		printf("Robot initializing...\n");
+		
 		//Stuff
+		
+		printf("Robot initialization complete.\n");
 	}
 	
 	void DisabledInit(void) {
+		printf("Robot disabled initializing...\n");
+		
 		//Stop the presses...
 		drivetrain->Drive(0, 0);
+		compressor->Stop();
+		
+		printf("Robot disabled initialization complete.\n");
 	}
 
 	void AutonomousInit(void) {
-		//Stuff
+		printf("Robot autonomous initializing...\n");
+
+		compressor->Start();
+		
+		printf("Robot autonomous initialization complete.\n");
 	}
 
 	void TeleopInit(void) {
-		//Stuff
+		printf("Robot teleop initializing...\n");
+
+		compressor->Start();
+		
+		printf("Robot teleop initialization complete.\n");
 	}
 	
 	/********************************* PERIODIC ROUTINES *********************************/
 	void DisabledPeriodic(void) {
-		//Don't go anywhere...
-		drivetrain->Drive(0, 0);
+		//Stuff
 	}
 	
 	void AutonomousPeriodic(void) {
@@ -58,6 +79,21 @@ public:
 	}
 	
 	void TeleopPeriodic(void) {
+		//Stuff
+	}
+	
+	/******************************** CONTINUOUS ROUTINES ********************************/
+	void DisabledContinuous(void) {
+		//Stop the presses...
+		drivetrain->Drive(0, 0);
+		compressor->Stop();
+	}
+	
+	void AutonomousContinuous(void) {
+		//Stuff
+	}
+	
+	void TeleopContinuous(void) {
 		GetWatchdog().Feed();
 		
 		//Drive the robot

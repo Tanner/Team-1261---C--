@@ -8,6 +8,12 @@ namespace
 	static const int PWM_DRIVE_RL = 1;
 	static const int PWM_DRIVE_FR = 4;
 	static const int PWM_DRIVE_RR = 3;
+	
+	//Relays
+	static const int RELAY_COMPRESSOR = 1;
+	
+	//DIO
+	static const int DIO_PRESSURE = 2;
 }
 
 #endif
