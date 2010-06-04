@@ -1,6 +1,9 @@
-#include "WPILib.h"
+//#include "WPILib.h"
 
-#include "robotDrive.h"
+#include "Constants.h"
+
+#include "IterativeRobot.h"
+#include "RobotDrive.h"
 #include "Joystick.h"
 
 /**
@@ -17,17 +20,21 @@ class Chimichanga : public IterativeRobot
 public:
 	Chimichanga(void)
 	{
-		drivetrain = new RobotDrive(1, 2, 3, 4);
+		drivetrain = new RobotDrive(PWM_DRIVE_FL, PWM_DRIVE_RL, PWM_DRIVE_FR, PWM_DRIVE_RR);
+		drivetrain->SetInvertedMotor(drivetrain->kFrontLeftMotor, true);
+		drivetrain->SetInvertedMotor(drivetrain->kRearLeftMotor, true);
+		
 		joystick = new Joystick(1);
 	}
 	
-	/*** INIT FUNCTIONS ***/
+	/********************************* INIT FUNCTIONS *********************************/
 	void RobotInit(void) {
 		//Stuff
 	}
 	
 	void DisabledInit(void) {
-		//Stuff
+		//Stop the presses...
+		drivetrain->Drive(0, 0);
 	}
 
 	void AutonomousInit(void) {
@@ -38,9 +45,10 @@ public:
 		//Stuff
 	}
 	
-	/*** PERIODIC ROUTINES ***/
+	/********************************* PERIODIC ROUTINES *********************************/
 	void DisabledPeriodic(void) {
-		//Stuff
+		//Don't go anywhere...
+		drivetrain->Drive(0, 0);
 	}
 	
 	void AutonomousPeriodic(void) {
@@ -48,7 +56,8 @@ public:
 	}
 	
 	void TeleopPeriodic(void) {
-		//Stuff
+		//Drive the robot
+		drivetrain->ArcadeDrive(joystick->GetRawAxis(4),joystick->GetRawAxis(2));
 	}
 };
 
