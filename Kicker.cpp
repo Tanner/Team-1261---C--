@@ -116,7 +116,7 @@ void Kicker::Arm()
 		}
 	} else {
 		//Get the kicker into the armed position
-		SailClutch(true);
+		EngageSailClutch(true);
 		winchMotor->Set(winchArmSpeed);
 		
 		setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
@@ -130,7 +130,7 @@ void Kicker::Kick()
 	rollerMotor->Set(rollerReleaseBallSpeed);
 	
 	//In the words of Bethany Sumner, "Fire ze missiles!"
-	SailClutch(false);
+	EngageSailClutch(false);
 	
 	//And reset everything for another kick
 	kickerMode = KICKER_MODE_STANDBY;
@@ -158,7 +158,7 @@ void Kicker::SetPower()
 	if (setPoint <= 0)
 	{
 		//Stop the kicker, even if we're at zero and supposed to be there (this comment makes no sense)
-		SailClutch(true);
+		EngageSailClutch(true);
 		
 		kickerResetEncoder = false;
 		winchMotor->Set(0);
@@ -168,20 +168,20 @@ void Kicker::SetPower()
 		if (kickerEncoder->GetDistance() >= setPoint)
 		{
 			//We MIGHT be in position... maybe... ish - lock the clutch and shut everything else off
-			SailClutch(true);
+			EngageSailClutch(true);
 			
 			kickerResetEncoder = false;
 			winchMotor->Set(0);
 			kickerInPosition = true;
 		} else {
 			//Move to position, sir yes sir!
-			SailClutch(false);
+			EngageSailClutch(false);
 			winchMotor->Set(winchBackwindSpeed);
 		}
 	}
 }
 
-void Kicker::SailClutch(bool engage)
+void Kicker::EngageSailClutch(bool engage)
 {
 	if (engage)
 	{
@@ -212,7 +212,7 @@ void Kicker::MoveRoller(bool rollerOn)
 
 void Kicker::Backwind()
 {
-	SailClutch(true);
+	EngageSailClutch(true);
 	
 	//Reset the encoder if we need to
 	if (!kickerResetEncoder)

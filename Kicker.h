@@ -57,7 +57,7 @@ public:
 	
 private:
 	//Private Methods
-	void SailClutch(bool engage);
+	void EngageSailClutch(bool engage);
 	void MoveRoller(bool rollerOn);
 	void Backwind();
 	void SetPower();
