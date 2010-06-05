@@ -57,6 +57,7 @@ public:
 	Kicker();
 	void Act();
 	void Reset();
+	void SafeReset();
 	
 private:
 	//Private Methods

@@ -84,7 +84,7 @@ public:
 		GetWatchdog().Feed();
 		
 		compressor->Start();
-		kicker->Reset();
+		kicker->SafeReset();
 		
 		leftDrivetrainEncoder->Start();
 		rightDrivetrainEncoder->Start();

@@ -152,6 +152,13 @@ void Kicker::Reset()
 	kickerResetEncoder = false;
 }
 
+void Kicker::SafeReset()
+{
+	//Do a safe reset (i.e. don't do anything when we're done with this)
+	Reset();
+	kickerMode = KICKER_MODE_ARMED;
+}
+
 void Kicker::SetPower()
 {
 	//Reset the encoder if we need to
