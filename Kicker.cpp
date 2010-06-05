@@ -120,6 +120,7 @@ void Kicker::Arm()
 		winchMotor->Set(winchArmSpeed);
 		
 		setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
+		printf("Set Point: %f", setPoint);
 	}
 }
 
@@ -237,7 +238,7 @@ void Kicker::Backwind()
 	double percentRelativeToLowPower = setPoint / minimumSetPoint;
 	double newBackwind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
 	
-	//Sunny doesn't like this (aka it doesn't work very well)
+	//Backwind by using a PE loop
 	double processVariable = fabs(kickerEncoder->GetDistance());
 	double error = fabs(processVariable - newBackwind) / newBackwind;
 	if (error <= backwindTolerance)
@@ -249,4 +250,19 @@ void Kicker::Backwind()
 		double motorSpeed = error * winchBackwindSpeed;
 		winchMotor->Set(motorSpeed);
 	}
+}
+
+bool Kicker::HasBall()
+{
+	return !rollerSwitch->Get();
+}
+
+bool Kicker::IsKickerInPosition()
+{
+	return kickerInPosition;
+}
+
+void Kicker::SetKickerMode(int mode)
+{
+	kickerMode = mode;
 }

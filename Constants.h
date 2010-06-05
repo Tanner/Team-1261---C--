@@ -40,6 +40,15 @@ namespace
 	//Joysticks
 	static const UINT32 JOYSTICK_DRIVE = 1;
 	static const UINT32 JOYSTICK_KICK = 2;
+	
+	//Kicker
+	enum KickerModes
+	{
+		KICKER_MODE_STANDBY = 0,
+		KICKER_MODE_ARMED = 1,
+		KICKER_MODE_ARM = 2,
+		KICKER_MODE_KICK = 3
+	};
 }
 
 #endif

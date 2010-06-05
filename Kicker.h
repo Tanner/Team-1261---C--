@@ -29,14 +29,6 @@ class Kicker
 	double setPoint;
 	int kickerMode;
 	
-	enum KickerModes
-	{
-		KICKER_MODE_STANDBY = 0,
-		KICKER_MODE_ARMED = 1,
-		KICKER_MODE_ARM = 2,
-		KICKER_MODE_KICK = 3
-	};
-	
 	const static int winchArmSpeed = 1;
 	const static int winchBackwindSpeed = -1;
 	const static int fullPowerBackwind = 1207;
@@ -58,6 +50,10 @@ public:
 	void Act();
 	void Reset();
 	void SafeReset();
+	
+	bool HasBall();
+	bool IsKickerInPosition();
+	void SetKickerMode(int mode);
 	
 private:
 	//Private Methods

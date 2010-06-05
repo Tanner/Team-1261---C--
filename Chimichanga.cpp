@@ -25,6 +25,8 @@ class Chimichanga : public IterativeRobot
 	
 	Kicker *kicker;
 	
+	static const double autonomousForwardPower = -0.5;
+	
 public:
 	Chimichanga(void)
 	{
@@ -74,6 +76,7 @@ public:
 		GetWatchdog().Feed();
 		
 		compressor->Start();
+		kicker->Reset();
 		
 		printf("Robot autonomous initialization complete.\n");
 	}
@@ -117,9 +120,30 @@ public:
 	}
 	
 	void AutonomousContinuous(void) {
-		printf("Running in autonomous continuous...\n");
+		//printf("Running in autonomous continuous...\n");
+
+		GetWatchdog().Feed();
 		
-		//Stuff
+		if (kicker->HasBall())
+		{
+			//We have a ball, thus stop moving and kick the ball
+			drivetrain->Drive(0, 0);
+			kicker->SetKickerMode(KICKER_MODE_KICK);
+		} else {
+			//We do not have a ball
+			if (kicker->IsKickerInPosition())
+			{
+				//Move forward!
+				drivetrain->Drive(autonomousForwardPower, 0);
+			} else {
+				//If not in position, wait for it to be there...
+				drivetrain->Drive(0, 0);
+				kicker->SetKickerMode(KICKER_MODE_ARM);
+			}
+		}
+		
+		//Run the kicker
+		kicker->Act();
 	}
 	
 	void TeleopContinuous(void) {
