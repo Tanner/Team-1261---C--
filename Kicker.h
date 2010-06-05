@@ -43,8 +43,8 @@ class Kicker
 	const static int slowPowerBackwind = 808;
 	const static int minimumSetPoint = 300;
 	
-	const static int rollerOnSpeed = -1;
-	const static double rollerReleaseBallSpeed = 0.2;
+	const static int rollerOnSpeed = 1;
+	const static double rollerReleaseBallSpeed = -0.2;
 	
 	const static int joystickKickButton = 1;
 	const static int joystickEmergencyArmButton = 3;
