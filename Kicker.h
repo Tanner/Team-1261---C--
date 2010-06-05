@@ -1,11 +1,14 @@
 #ifndef _KICKER_H_
 #define _KICKER_H_
 
+#include "DistanceEncoder.h"
+
 #include "Encoder.h"
 #include "Victor.h"
 #include "Solenoid.h"
 #include "DigitalInput.h"
 #include "Joystick.h"
+#include "PIDController.h"
 
 class Kicker
 {
@@ -17,10 +20,14 @@ class Kicker
 	
 	//Sensors
 	Encoder *kickerEncoder;
+	DistanceEncoder *kickerDistanceEncoder;
 	DigitalInput *rollerSwitch;
 	DigitalInput *kickerSwitch;
 	
 	Joystick *kickerJoystick;
+	
+	//PID
+	PIDController *backwindPID;
 	
 	bool kickerResetEncoder;
 	bool kickerHitSwitch;

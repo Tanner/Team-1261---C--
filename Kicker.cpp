@@ -1,10 +1,12 @@
 #include "Constants.h"
 #include "Kicker.h"
+#include "DistanceEncoder.h"
 
 #include "Encoder.h"
 #include "Solenoid.h"
 #include "DigitalInput.h"
 #include "Joystick.h"
+#include "PIDController.h"
 
 #include "Math.h"
 #include <vxWorks.h>
@@ -22,6 +24,7 @@ Kicker::Kicker()
 	
 	//Sensors
 	kickerEncoder = new Encoder(DIO_ENCODER_KICKER_A, DIO_ENCODER_KICKER_B);
+	kickerDistanceEncoder = new DistanceEncoder(kickerEncoder);
 	rollerSwitch = new DigitalInput(DIO_ROLLER_SWITCH);
 	kickerSwitch = new DigitalInput(DIO_KICKER_SWITCH);
 	
@@ -33,6 +36,8 @@ Kicker::Kicker()
 	kickerMode = KICKER_MODE_ARMED;
 	kickerHitSwitch = false;
 	kickerInPosition = false;
+	
+	backwindPID = new PIDController(0.0, 0.0, 0.0, kickerDistanceEncoder, winchMotor);
 	
 	kickerEncoder->Start();
 }
