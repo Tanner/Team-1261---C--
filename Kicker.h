@@ -69,8 +69,6 @@ private:
 	void Arm();
 	void Kick();
 	void Armed();
-	
-	double Map(double x, double inMin, double inMax, double outMin, double outMax);
 };
 
 #endif
