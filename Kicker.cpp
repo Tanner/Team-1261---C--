@@ -110,7 +110,7 @@ void Kicker::Arm()
 			Backwind();
 		} else {
 			//Keep getting into position...
-			//SetPower();
+			SetPower();
 		}
 	} else {
 		//Get the kicker into the armed position
