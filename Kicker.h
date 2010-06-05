@@ -31,10 +31,10 @@ class Kicker
 	
 	enum KickerModes
 	{
-		KICKER_MODE_STANDBY,
-		KICKER_MODE_ARMED,
-		KICKER_MODE_ARM,
-		KICKER_MODE_KICK
+		KICKER_MODE_STANDBY = 0,
+		KICKER_MODE_ARMED = 1,
+		KICKER_MODE_ARM = 2,
+		KICKER_MODE_KICK = 3
 	};
 	
 	const static int winchArmSpeed = 1;

@@ -29,6 +29,8 @@ Kicker::Kicker()
 	
 	//Other Stuff
 	rollerOn = true;
+	
+	kickerMode = KICKER_MODE_ARMED;
 	kickerHitSwitch = false;
 	kickerInPosition = false;
 	
@@ -38,7 +40,7 @@ Kicker::Kicker()
 void Kicker::Act()
 {
 	//Arm/Kick depending on the fire button on the kicker joystick
-	if (kickerJoystick->GetRawButton(joystickKickButton))
+	if (kickerJoystick->GetRawButton(joystickKickButton) == 1)
 	{
 		//If the kicker is in standby mode, who cares - life is over
 		//If the kicker is in arm mode, do nothing
@@ -60,7 +62,7 @@ void Kicker::Act()
 	}
 	
 	//Emergency armed button for those strange occations when things don't work right
-	if (kickerJoystick->GetRawButton(joystickEmergencyArmButton))
+	if (kickerJoystick->GetRawButton(joystickEmergencyArmButton) == 1)
 	{
 		//Don't care where we are, just do it. I hate you.
 		kickerMode = KICKER_MODE_ARMED;
@@ -117,7 +119,7 @@ void Kicker::Arm()
 		SailClutch(true);
 		winchMotor->Set(winchArmSpeed);
 		
-		setPoint = kickerJoystick->GetRawAxis(joystickKickPowerAxis) * minimumSetPoint;
+		setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
 	}
 }
 
