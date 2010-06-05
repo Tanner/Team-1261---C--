@@ -44,7 +44,7 @@
             <stringAttribute key="BLD::Info|Macro|CC_ARCH_SPEC|value|PPC32diab" value="-tPPCFH:vxworks63 -Xstmw-slow -DPPC32_fp60x"/>
             <stringAttribute key="BLD::Info|Macro|CC_ARCH_SPEC|value|PPC32gnu" value="-mhard-float -mstrict-align -mno-implicit-fp -DPPC32_fp60x"/>
             <stringAttribute key="BLD::Info|Macro|CC_ARCH_SPEC|value|PPC603diab" value="-tPPC603FH:vxworks63"/>
-            <stringAttribute key="BLD::Info|Macro|CC_ARCH_SPEC|value|PPC603gnu" value="-mcpu=603 -mstrict-align -mno-implicit-fp"/>
+            <stringAttribute key="BLD::Info|Macro|CC_ARCH_SPEC|value|PPC603gnu" value="-mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall"/>
             <stringAttribute key="BLD::Info|Macro|CPU|value|PPC32diab" value="PPC32"/>
             <stringAttribute key="BLD::Info|Macro|CPU|value|PPC32gnu" value="PPC32"/>
             <stringAttribute key="BLD::Info|Macro|CPU|value|PPC603diab" value="PPC603"/>

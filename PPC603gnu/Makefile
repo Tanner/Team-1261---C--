@@ -48,7 +48,7 @@ CPU = PPC603
 TOOL_FAMILY = gnu
 TOOL = gnu
 TOOL_PATH = 
-CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp
+CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
 LIBPATH = 
 LIBS = 
 
@@ -109,7 +109,7 @@ Chimichanga/$(MODE_DIR)/% : CPU = PPC603
 Chimichanga/$(MODE_DIR)/% : TOOL_FAMILY = gnu
 Chimichanga/$(MODE_DIR)/% : TOOL = gnu
 Chimichanga/$(MODE_DIR)/% : TOOL_PATH = 
-Chimichanga/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp
+Chimichanga/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
 Chimichanga/$(MODE_DIR)/% : LIBPATH = 
 Chimichanga/$(MODE_DIR)/% : LIBS = 
 Chimichanga/$(MODE_DIR)/% : OBJ_DIR := Chimichanga/$(MODE_DIR)
@@ -153,7 +153,7 @@ Chimichanga_partialImage/$(MODE_DIR)/% : CPU = PPC603
 Chimichanga_partialImage/$(MODE_DIR)/% : TOOL_FAMILY = gnu
 Chimichanga_partialImage/$(MODE_DIR)/% : TOOL = gnu
 Chimichanga_partialImage/$(MODE_DIR)/% : TOOL_PATH = 
-Chimichanga_partialImage/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp
+Chimichanga_partialImage/$(MODE_DIR)/% : CC_ARCH_SPEC = -mcpu=603 -mstrict-align -mno-implicit-fp -mlongcall
 Chimichanga_partialImage/$(MODE_DIR)/% : LIBPATH = 
 Chimichanga_partialImage/$(MODE_DIR)/% : LIBS = 
 Chimichanga_partialImage/$(MODE_DIR)/% : OBJ_DIR := Chimichanga_partialImage/$(MODE_DIR)
@@ -162,11 +162,16 @@ Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.o : C:/User
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
+Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/DistanceEncoder.o : C:/Users/Tanner/Desktop/FRC\ C++/Chimichanga/DistanceEncoder.cpp
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
 Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.o : C:/Users/Tanner/Desktop/FRC\ C++/Chimichanga/Kicker.cpp
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
 OBJECTS_Chimichanga_partialImage = Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.o \
+	 Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/DistanceEncoder.o \
 	 Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.o
 
 Chimichanga_partialImage/$(MODE_DIR)/Chimichanga_partialImage.o : $(OBJECTS_Chimichanga_partialImage)
@@ -179,7 +184,7 @@ _clean :: Chimichanga_partialImage/$(MODE_DIR)/Chimichanga_partialImage_clean
 Chimichanga_partialImage/$(MODE_DIR)/Chimichanga_partialImage_clean : 
 	$(TRACE_FLAG)if [ -d "Chimichanga_partialImage" ]; then cd "Chimichanga_partialImage"; rm -rf $(MODE_DIR); fi
 
-DEP_FILES := Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.d Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.d
+DEP_FILES := Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Chimichanga.d Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/DistanceEncoder.d Chimichanga_partialImage/$(MODE_DIR)/Objects/Chimichanga/Kicker.d
 -include $(DEP_FILES)
 
 
