@@ -1,12 +1,10 @@
 #include "Constants.h"
 #include "Kicker.h"
-#include "DistanceEncoder.h"
 
 #include "Encoder.h"
 #include "Solenoid.h"
 #include "DigitalInput.h"
 #include "Joystick.h"
-#include "PIDController.h"
 
 #include "Math.h"
 #include <vxWorks.h>
@@ -24,7 +22,6 @@ Kicker::Kicker()
 	
 	//Sensors
 	kickerEncoder = new Encoder(DIO_ENCODER_KICKER_A, DIO_ENCODER_KICKER_B);
-	kickerDistanceEncoder = new DistanceEncoder(kickerEncoder);
 	rollerSwitch = new DigitalInput(DIO_ROLLER_SWITCH);
 	kickerSwitch = new DigitalInput(DIO_KICKER_SWITCH);
 	
@@ -36,8 +33,6 @@ Kicker::Kicker()
 	kickerMode = KICKER_MODE_ARMED;
 	kickerHitSwitch = false;
 	kickerInPosition = false;
-	
-	backwindPID = new PIDController(0.0, 0.0, 0.0, kickerDistanceEncoder, winchMotor);
 	
 	kickerEncoder->Start();
 }
@@ -233,15 +228,21 @@ void Kicker::Backwind()
 	}
 	
 	double percentRelativeToLowPower = setPoint / minimumSetPoint;
-	double newBackWind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
+	double newBackwind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
 	
 	//Sunny doesn't like this (aka it doesn't work very well)
-	if (fabs(kickerEncoder->GetDistance()) >= newBackWind)
+	double processVariable = fabs(kickerEncoder->GetDistance());
+	double error = fabs(processVariable - newBackwind) / newBackwind;
+	if (error <= 0.01)
 	{
 		winchMotor->Set(0);
 		kickerMode = KICKER_MODE_ARMED;
 	} else {
 		//Begin backwinding the motor to release tension...
-		winchMotor->Set(winchBackwindSpeed);
+		printf("Error: %f \n", error);
+		double motorSpeed = error * winchBackwindSpeed;
+		printf("Motor Speed: %f \n",motorSpeed);
+
+		winchMotor->Set(motorSpeed);
 	}
 }
