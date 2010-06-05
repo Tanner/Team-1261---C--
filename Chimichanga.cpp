@@ -120,7 +120,7 @@ public:
 	}
 	
 	void AutonomousContinuous(void) {
-		//printf("Running in autonomous continuous...\n");
+		printf("Running in autonomous continuous...\n");
 
 		GetWatchdog().Feed();
 		
@@ -134,10 +134,10 @@ public:
 			if (kicker->IsKickerInPosition())
 			{
 				//Move forward!
-				drivetrain->Drive(autonomousForwardPower, 0);
+				drivetrain->ArcadeDrive(autonomousForwardPower, 0.0);
 			} else {
 				//If not in position, wait for it to be there...
-				drivetrain->Drive(0, 0);
+				drivetrain->ArcadeDrive(0.0, 0.0);
 				kicker->SetKickerMode(KICKER_MODE_ARM);
 			}
 		}
