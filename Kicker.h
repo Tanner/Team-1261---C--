@@ -54,6 +54,7 @@ public:
 	//Public Methods
 	Kicker();
 	void Act();
+	void Reset();
 	
 private:
 	//Private Methods

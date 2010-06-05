@@ -133,10 +133,7 @@ void Kicker::Kick()
 	EngageSailClutch(false);
 	
 	//And reset everything for another kick
-	kickerMode = KICKER_MODE_STANDBY;
-	kickerHitSwitch = false;
-	kickerInPosition = false;
-	kickerResetEncoder = false;
+	Reset();
 }
 
 void Kicker::Armed()
@@ -144,6 +141,15 @@ void Kicker::Armed()
 	//Stop the winch from winching and turn on the roller so we can get balls...
 	winchMotor->Set(0);
 	rollerOn = true;
+}
+
+void Kicker::Reset()
+{
+	//Reset everything for another run.
+	kickerMode = KICKER_MODE_STANDBY;
+	kickerHitSwitch = false;
+	kickerInPosition = false;
+	kickerResetEncoder = false;
 }
 
 void Kicker::SetPower()
@@ -164,7 +170,7 @@ void Kicker::SetPower()
 		winchMotor->Set(0);
 		kickerInPosition = true;
 	} else {
-		//Move the kicker to position (this should be replaced by a PID loop? Yeah...
+		//Move the kicker to position (this is accurate enough)
 		if (kickerEncoder->GetDistance() >= setPoint)
 		{
 			//We MIGHT be in position... maybe... ish - lock the clutch and shut everything else off
@@ -224,6 +230,7 @@ void Kicker::Backwind()
 	double percentRelativeToLowPower = setPoint / minimumSetPoint;
 	double newBackWind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
 	
+	//Sunny doesn't like this (aka it doesn't work very well)
 	if (fabs(kickerEncoder->GetDistance()) >= newBackWind)
 	{
 		winchMotor->Set(0);

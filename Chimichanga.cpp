@@ -50,14 +50,16 @@ public:
 	/********************************* INIT FUNCTIONS *********************************/
 	void RobotInit(void) {
 		printf("Robot initializing...\n");
-		
-		//Stuff
+
+		GetWatchdog().Feed();
 		
 		printf("Robot initialization complete.\n");
 	}
 	
 	void DisabledInit(void) {
 		printf("Robot disabled initializing...\n");
+
+		GetWatchdog().Feed();
 		
 		//Stop the presses...
 		drivetrain->Drive(0, 0);
@@ -69,6 +71,8 @@ public:
 	void AutonomousInit(void) {
 		printf("Robot autonomous initializing...\n");
 
+		GetWatchdog().Feed();
+		
 		compressor->Start();
 		
 		printf("Robot autonomous initialization complete.\n");
@@ -77,7 +81,10 @@ public:
 	void TeleopInit(void) {
 		printf("Robot teleop initializing...\n");
 
+		GetWatchdog().Feed();
+		
 		compressor->Start();
+		kicker->Reset();
 		
 		leftDrivetrainEncoder->Start();
 		rightDrivetrainEncoder->Start();
@@ -101,6 +108,8 @@ public:
 	/******************************** CONTINUOUS ROUTINES ********************************/
 	void DisabledContinuous(void) {
 		printf("Running in disabled continuous...\n");
+
+		GetWatchdog().Feed();
 		
 		//Stop the presses...
 		drivetrain->Drive(0, 0);
