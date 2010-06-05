@@ -123,9 +123,6 @@ public:
 		
 		//Run the kicker
 		kicker->Act();
-		
-		printf("Left Side: %f \n", leftDrivetrainEncoder->GetRate());
-		printf("Right Side: %f \n", rightDrivetrainEncoder->GetRate());
 	}
 };
 

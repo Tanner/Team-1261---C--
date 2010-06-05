@@ -176,7 +176,7 @@ void Kicker::SetPower()
 		} else {
 			//Move to position, sir yes sir!
 			SailClutch(false);
-			winchMotor->Set(winchArmSpeed);
+			winchMotor->Set(winchBackwindSpeed);
 		}
 	}
 }
