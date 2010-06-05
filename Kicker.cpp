@@ -233,16 +233,13 @@ void Kicker::Backwind()
 	//Sunny doesn't like this (aka it doesn't work very well)
 	double processVariable = fabs(kickerEncoder->GetDistance());
 	double error = fabs(processVariable - newBackwind) / newBackwind;
-	if (error <= 0.01)
+	if (error <= backwindTolerance)
 	{
 		winchMotor->Set(0);
 		kickerMode = KICKER_MODE_ARMED;
 	} else {
 		//Begin backwinding the motor to release tension...
-		printf("Error: %f \n", error);
 		double motorSpeed = error * winchBackwindSpeed;
-		printf("Motor Speed: %f \n",motorSpeed);
-
 		winchMotor->Set(motorSpeed);
 	}
 }

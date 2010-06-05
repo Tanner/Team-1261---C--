@@ -50,6 +50,8 @@ class Kicker
 	const static int joystickEmergencyArmButton = 3;
 	const static int joystickKickPowerAxis = 3;
 	
+	const static double backwindTolerance = 0.1;
+	
 public:
 	//Public Methods
 	Kicker();
