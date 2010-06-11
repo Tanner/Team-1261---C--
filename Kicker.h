@@ -49,9 +49,9 @@ class Kicker
 	const static int joystickEmergencyArmButton = 3;	//Change me to Y button
 	
 	const static int joystickKickManualPowerAxis = 3;
+	const static double joystickKickManualActivationValue = 2;
 	
 	const static double backwindTolerance = 0.1;
-	const static double joystickManualMinActionValue = 2;
 	
 public:
 	//Public Methods
