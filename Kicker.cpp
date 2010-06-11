@@ -213,6 +213,7 @@ void Kicker::MoveRoller(bool rollerOn)
 {
 	if (rollerOn)
 	{
+		//Fix this - the encoder will not very likely equal zero when it stops, it'll just move very slowly.
 		if (rollerEncoder->GetRate() == 0)
 		{
 			rollerMotor->Set(0);
