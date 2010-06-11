@@ -73,11 +73,11 @@ void Kicker::Act()
 	//Set the power set point based on the buttons
 	if (kickerJoystick->GetRawButton(joystickSlowPowerButton))
 	{
-		setPoint = slowPowerBackwind;
+		setPoint = fullPowerSetPoint;
 	} else if (kickerJoystick->GetRawButton(joystickMedPowerButton)) {
-		setPoint = mediumPowerBackwind;
+		setPoint = mediumPowerSetPoint;
 	} else if (kickerJoystick->GetRawButton(joystickFullPowerButton)) {
-		setPoint = fullPowerBackwind;
+		setPoint = lowPowerSetPoint;
 	} else {
 		//If not are pressed, retain the value or use the trigger pot.
 		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
