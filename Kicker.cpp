@@ -130,7 +130,7 @@ void Kicker::Arm()
 		setPoint = fullPowerBackwind;
 	} else {
 		//If not are pressed, retain the value or use the trigger pot.
-		if (fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) > 0)
+		if (fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) > joystickManualMinActionValue)
 		{
 			//Use the trigger value instead
 			setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
