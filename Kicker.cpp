@@ -118,8 +118,6 @@ void Kicker::Arm()
 		//Get the kicker into the armed position
 		EngageSailClutch(true);
 		winchMotor->Set(winchArmSpeed);
-		
-		//setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
 	}
 	
 	//Set the power set point based on the buttons
@@ -131,7 +129,12 @@ void Kicker::Arm()
 	} else if (kickerJoystick->GetRawButton(joystickSlowPowerButton)) {
 		setPoint = fullPowerBackwind;
 	} else {
-		//If not are pressed, retain the value.
+		//If not are pressed, retain the value or use the trigger pot.
+		if (fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) > 0)
+		{
+			//Use the trigger value instead
+			setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
+		}
 	}
 	
 	printf("Set Point: %f", setPoint);
