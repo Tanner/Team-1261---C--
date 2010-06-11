@@ -29,8 +29,8 @@ namespace
 	static const UINT32 DIO_ENCODER_KICKER_A = 4;
 	static const UINT32 DIO_ENCODER_KICKER_B = 3;
 	
-	static const UINT32 DIO_ENCODER_ROLLER_A = 9;	//Change me
-	static const UINT32 DIO_ENCODER_ROLLER_B = 10;	//Change me
+	static const UINT32 DIO_ENCODER_ROLLER_A = 13;
+	static const UINT32 DIO_ENCODER_ROLLER_B = 14;
 	
 	static const UINT32 DIO_ROLLER_SWITCH = 12;
 	

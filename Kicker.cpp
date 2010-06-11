@@ -23,7 +23,6 @@ Kicker::Kicker()
 	//Sensors
 	kickerEncoder = new Encoder(DIO_ENCODER_KICKER_A, DIO_ENCODER_KICKER_B);
 	rollerEncoder = new Encoder(DIO_ENCODER_ROLLER_A, DIO_ENCODER_ROLLER_B);
-	kickerSwitch = new DigitalInput(DIO_KICKER_SWITCH);
 	
 	kickerJoystick = new Joystick(JOYSTICK_KICK);
 	
@@ -35,6 +34,7 @@ Kicker::Kicker()
 	kickerInPosition = false;
 	
 	kickerEncoder->Start();
+	rollerEncoder->Start();
 }
 
 void Kicker::Act()
@@ -211,6 +211,7 @@ void Kicker::EngageSailClutch(bool engage)
 
 void Kicker::MoveRoller(bool rollerOn)
 {
+	printf("Roller Encoder: %f",rollerEncoder->GetRate());
 	if (rollerOn)
 	{
 		//Fix this - the encoder will not very likely equal zero when it stops, it'll just move very slowly.
@@ -255,7 +256,12 @@ void Kicker::Backwind()
 
 bool Kicker::HasBall()
 {
-	return !rollerSwitch->Get();
+	if (rollerEncoder->GetRate() == 0)
+	{
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool Kicker::IsKickerInPosition()
