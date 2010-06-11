@@ -131,7 +131,7 @@ void Kicker::Arm()
 	} else {
 		//If not are pressed, retain the value or use the trigger pot.
 		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
-		if (manualValue > joystickManualMinActionValue)
+		if (manualValue > joystickKickManualActivationValue)
 		{
 			//Use the trigger value instead
 			setPoint = manualValue * minimumSetPoint;
