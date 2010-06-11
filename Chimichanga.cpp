@@ -110,7 +110,7 @@ public:
 	
 	/******************************** CONTINUOUS ROUTINES ********************************/
 	void DisabledContinuous(void) {
-		printf("Running in disabled continuous...\n");
+		//printf("Running in disabled continuous...\n");
 
 		GetWatchdog().Feed();
 		
@@ -147,7 +147,7 @@ public:
 	}
 	
 	void TeleopContinuous(void) {
-		printf("Running in teleop continuous...\n");
+		//printf("Running in teleop continuous...\n");
 		
 		GetWatchdog().Feed();
 		

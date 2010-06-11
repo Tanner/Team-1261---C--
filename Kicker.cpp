@@ -70,6 +70,25 @@ void Kicker::Act()
 	
 	MoveRoller(rollerOn);
 	
+	//Set the power set point based on the buttons
+	if (kickerJoystick->GetRawButton(joystickSlowPowerButton))
+	{
+		setPoint = slowPowerBackwind;
+	} else if (kickerJoystick->GetRawButton(joystickMedPowerButton)) {
+		setPoint = mediumPowerBackwind;
+	} else if (kickerJoystick->GetRawButton(joystickFullPowerButton)) {
+		setPoint = fullPowerBackwind;
+	} else {
+		//If not are pressed, retain the value or use the trigger pot.
+		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
+		if (manualValue > joystickKickManualActivationValue)
+		{
+			//Use the trigger value instead
+			setPoint = manualValue * minimumSetPoint;
+		}
+	}	
+	printf("Set Point: %f\n", setPoint);
+	
 	switch(kickerMode)
 	{
 		case KICKER_MODE_ARM:
@@ -90,6 +109,8 @@ void Kicker::Act()
 
 void Kicker::Arm()
 {
+	lastSetPoint = setPoint;
+	
 	rollerOn = true;
 	
 	//Switch is false when pressed
@@ -119,26 +140,6 @@ void Kicker::Arm()
 		EngageSailClutch(true);
 		winchMotor->Set(winchArmSpeed);
 	}
-	
-	//Set the power set point based on the buttons
-	if (kickerJoystick->GetRawButton(joystickSlowPowerButton))
-	{
-		setPoint = slowPowerBackwind;
-	} else if (kickerJoystick->GetRawButton(joystickMedPowerButton)) {
-		setPoint = mediumPowerBackwind;
-	} else if (kickerJoystick->GetRawButton(joystickSlowPowerButton)) {
-		setPoint = fullPowerBackwind;
-	} else {
-		//If not are pressed, retain the value or use the trigger pot.
-		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
-		if (manualValue > joystickKickManualActivationValue)
-		{
-			//Use the trigger value instead
-			setPoint = manualValue * minimumSetPoint;
-		}
-	}
-	
-	printf("Set Point: %f", setPoint);
 }
 
 void Kicker::Kick()
@@ -186,7 +187,7 @@ void Kicker::SetPower()
 		kickerResetEncoder = true;
 	}
 	
-	if (setPoint <= 0)
+	if (lastSetPoint <= 0)
 	{
 		//Stop the kicker, even if we're at zero and supposed to be there (this comment makes no sense)
 		EngageSailClutch(true);
@@ -196,7 +197,7 @@ void Kicker::SetPower()
 		kickerInPosition = true;
 	} else {
 		//Move the kicker to position (this is accurate enough)
-		if (kickerEncoder->GetDistance() >= setPoint)
+		if (kickerEncoder->GetDistance() >= lastSetPoint)
 		{
 			//We MIGHT be in position... maybe... ish - lock the clutch and shut everything else off
 			EngageSailClutch(true);
@@ -252,7 +253,7 @@ void Kicker::Backwind()
 		kickerResetEncoder = true;
 	}
 	
-	double percentRelativeToLowPower = setPoint / minimumSetPoint;
+	double percentRelativeToLowPower = lastSetPoint / minimumSetPoint;
 	double newBackwind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
 	
 	//Backwind by using a PE loop
