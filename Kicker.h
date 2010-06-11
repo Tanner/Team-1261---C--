@@ -17,7 +17,7 @@ class Kicker
 	
 	//Sensors
 	Encoder *kickerEncoder;
-	DigitalInput *rollerSwitch;
+	Encoder *rollerEncoder;
 	DigitalInput *kickerSwitch;
 	
 	Joystick *kickerJoystick;

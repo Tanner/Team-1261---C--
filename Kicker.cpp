@@ -22,7 +22,7 @@ Kicker::Kicker()
 	
 	//Sensors
 	kickerEncoder = new Encoder(DIO_ENCODER_KICKER_A, DIO_ENCODER_KICKER_B);
-	rollerSwitch = new DigitalInput(DIO_ROLLER_SWITCH);
+	rollerEncoder = new Encoder(DIO_ENCODER_ROLLER_A, DIO_ENCODER_ROLLER_B);
 	kickerSwitch = new DigitalInput(DIO_KICKER_SWITCH);
 	
 	kickerJoystick = new Joystick(JOYSTICK_KICK);
@@ -213,11 +213,11 @@ void Kicker::MoveRoller(bool rollerOn)
 {
 	if (rollerOn)
 	{
-		if (rollerSwitch->Get())
+		if (rollerEncoder->GetRate() == 0)
 		{
-			rollerMotor->Set(rollerOnSpeed);
-		} else {
 			rollerMotor->Set(0);
+		} else {
+			rollerMotor->Set(rollerOnSpeed);
 		}
 	} else {
 		rollerMotor->Set(0);
