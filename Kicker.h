@@ -41,7 +41,7 @@ class Kicker
 	const static int rollerOnSpeed = 1;
 	const static double rollerReleaseBallSpeed = -0.2;
 	
-	const static int joystickKickButton = 10;
+	const static int joystickKickButton = 5;
 	const static int joystickSlowPowerButton = 3;
 	const static int joystickMedPowerButton = 1;
 	const static int joystickFullPowerButton = 2;
