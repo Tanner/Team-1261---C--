@@ -236,7 +236,7 @@ void Kicker::Backwind()
 	}
 	
 	double percentRelativeToLowPower = setPoint / minimumSetPoint;
-	double newBackwind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
+	double newBackwind = ((fullPowerBackwind - lowPowerBackwind) * (1 - percentRelativeToLowPower)) + lowPowerBackwind;
 	
 	//Backwind by using a PE loop
 	double processVariable = fabs(kickerEncoder->GetDistance());

@@ -31,8 +31,9 @@ class Kicker
 	
 	const static int winchArmSpeed = 1;
 	const static int winchBackwindSpeed = -1;
+	
 	const static int fullPowerBackwind = 1207;
-	const static int slowPowerBackwind = 808;
+	const static int lowPowerBackwind = 808;
 	const static int minimumSetPoint = 300;
 	
 	const static int rollerOnSpeed = 1;
