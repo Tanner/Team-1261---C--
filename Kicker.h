@@ -41,12 +41,12 @@ class Kicker
 	const static int rollerOnSpeed = 1;
 	const static double rollerReleaseBallSpeed = -0.2;
 	
-	const static int joystickKickButton = 1;			//Change me to a joystick push button
-	const static int joystickSlowPowerButton = 4;		//Change me to X button
-	const static int joystickMedPowerButton = 5;		//Change me to A button
-	const static int joystickFullPowerButton = 6;		//Change me to B button
+	const static int joystickKickButton = 10;
+	const static int joystickSlowPowerButton = 3;
+	const static int joystickMedPowerButton = 1;
+	const static int joystickFullPowerButton = 2;
 	
-	const static int joystickEmergencyArmButton = 3;	//Change me to Y button
+	const static int joystickEmergencyArmButton = 4;
 	
 	const static int joystickKickManualPowerAxis = 3;
 	const static double joystickKickManualActivationValue = 2;
