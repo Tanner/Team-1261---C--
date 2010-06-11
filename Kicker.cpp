@@ -86,8 +86,7 @@ void Kicker::Act()
 			//Use the trigger value instead
 			setPoint = manualValue * minimumSetPoint;
 		}
-	}	
-	printf("Set Point: %f\n", setPoint);
+	}
 	
 	switch(kickerMode)
 	{
