@@ -39,7 +39,7 @@ class Kicker
 	const static int mediumPowerSetPoint = 150;
 	const static int lowPowerSetPoint = 300;
 	
-	const static int minimumSetPoint = 300;
+	const static int minimumSetPoint = 600;
 	
 	const static int rollerOnSpeed = 1;
 	const static double rollerReleaseBallSpeed = -0.2;
