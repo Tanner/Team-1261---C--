@@ -24,6 +24,8 @@ PID::PID(float Kp, float Ki, float Kd, float period)
 	
 	result = 0;
 	
+	enabled = true;
+	
 	this->period = period;
 }
 

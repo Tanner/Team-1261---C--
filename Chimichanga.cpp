@@ -1,5 +1,6 @@
 #include "Constants.h"
 #include "Kicker.h"
+#include "PID.h"
 
 #include "IterativeRobot.h"
 #include "RobotDrive.h"
@@ -25,6 +26,8 @@ class Chimichanga : public IterativeRobot
 	
 	Kicker *kicker;
 	
+	PID *drivePID;
+	
 	static const double autonomousForwardPower = -0.5;
 	
 public:
@@ -47,6 +50,7 @@ public:
 		
 		//Systems
 		kicker = new Kicker();
+		drivePID = new PID(50, 0.0, 0.0);
 	}
 	
 	/********************************* INIT FUNCTIONS *********************************/
@@ -110,7 +114,7 @@ public:
 	
 	/******************************** CONTINUOUS ROUTINES ********************************/
 	void DisabledContinuous(void) {
-		printf("Running in disabled continuous...\n");
+		//printf("Running in disabled continuous...\n");
 
 		GetWatchdog().Feed();
 		
@@ -147,12 +151,19 @@ public:
 	}
 	
 	void TeleopContinuous(void) {
-		printf("Running in teleop continuous...\n");
+		//printf("Running in teleop continuous...\n");
 		
 		GetWatchdog().Feed();
 		
 		//Drive the robot
-		drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(4),driverJoystick->GetRawAxis(2));
+		drivePID->SetSetPoint(200);
+		drivePID->SetInputRange(-10000, 10000);
+		
+		double pidResult = drivePID->Calculate(rightDrivetrainEncoder->GetRate());
+		drivetrain->TankDrive(0.0, pidResult);
+		printf("PID Result: %f\n", pidResult);
+		printf("Encoder Rate: %f out of %f\n", rightDrivetrainEncoder->GetRate(), 5000.0);
+		//drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(4),driverJoystick->GetRawAxis(2));
 		
 		//Run the kicker
 		kicker->Act();
