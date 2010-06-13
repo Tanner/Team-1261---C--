@@ -25,7 +25,7 @@ class Chimichanga : public IterativeRobot
 	
 	Kicker *kicker;
 	
-	static const double autonomousForwardPower = -0.5;
+	static const float autonomousForwardPower = -0.5;
 	
 public:
 	Chimichanga(void)
@@ -64,7 +64,7 @@ public:
 		GetWatchdog().Feed();
 		
 		//Stop the presses...
-		drivetrain->Drive(0, 0);
+		drivetrain->Drive(0.0, 0.0);
 		compressor->Stop();
 		
 		printf("Robot disabled initialization complete.\n");
@@ -115,7 +115,7 @@ public:
 		GetWatchdog().Feed();
 		
 		//Stop the presses...
-		drivetrain->Drive(0, 0);
+		drivetrain->Drive(0.0, 0.0);
 		compressor->Stop();
 	}
 	
@@ -127,7 +127,7 @@ public:
 		if (kicker->HasBall())
 		{
 			//We have a ball, thus stop moving and kick the ball
-			drivetrain->Drive(0, 0);
+			drivetrain->Drive(0.0, 0.0);
 			kicker->SetKickerMode(KICKER_MODE_KICK);
 		} else {
 			//We do not have a ball
