@@ -108,7 +108,7 @@ void Kicker::Act()
 
 void Kicker::Arm()
 {
-	lastSetPoint = setPoint;
+	activeSetPoint = setPoint;
 	
 	rollerOn = true;
 	
@@ -186,7 +186,7 @@ void Kicker::SetPower()
 		kickerResetEncoder = true;
 	}
 	
-	if (lastSetPoint <= 0)
+	if (activeSetPoint <= 0)
 	{
 		//Stop the kicker, even if we're at zero and supposed to be there (this comment makes no sense)
 		EngageSailClutch(true);
@@ -196,7 +196,7 @@ void Kicker::SetPower()
 		kickerInPosition = true;
 	} else {
 		//Move the kicker to position (this is accurate enough)
-		if (kickerEncoder->GetDistance() >= lastSetPoint)
+		if (kickerEncoder->GetDistance() >= activeSetPoint)
 		{
 			//We MIGHT be in position... maybe... ish - lock the clutch and shut everything else off
 			EngageSailClutch(true);
@@ -252,7 +252,7 @@ void Kicker::Backwind()
 		kickerResetEncoder = true;
 	}
 	
-	double percentRelativeToLowPower = lastSetPoint / minimumSetPoint;
+	double percentRelativeToLowPower = activeSetPoint / minimumSetPoint;
 	double newBackwind = ((fullPowerBackwind - slowPowerBackwind) * (1 - percentRelativeToLowPower)) + slowPowerBackwind;
 	
 	//Backwind by using a PE loop

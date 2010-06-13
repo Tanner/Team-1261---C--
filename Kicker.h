@@ -26,7 +26,7 @@ class Kicker
 	bool kickerHitSwitch;
 	bool kickerInPosition;
 	bool rollerOn;
-	double setPoint, lastSetPoint;
+	double setPoint, activeSetPoint;
 	int kickerMode;
 	
 	const static int winchArmSpeed = 1;
