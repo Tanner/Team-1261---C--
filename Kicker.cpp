@@ -70,6 +70,24 @@ void Kicker::Act()
 	
 	MoveRoller(rollerOn);
 	
+	//Set the power set point based on the buttons
+	if (kickerJoystick->GetRawButton(joystickSlowPowerButton))
+	{
+		setPoint = fullPowerSetPoint;
+	} else if (kickerJoystick->GetRawButton(joystickMedPowerButton)) {
+		setPoint = mediumPowerSetPoint;
+	} else if (kickerJoystick->GetRawButton(joystickFullPowerButton)) {
+		setPoint = lowPowerSetPoint;
+	} else {
+		//If not are pressed, retain the value or use the trigger pot.
+		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
+		if (manualValue > joystickKickManualActivationValue)
+		{
+			//Use the trigger value instead
+			setPoint = manualValue * minimumSetPoint;
+		}
+	}
+	
 	switch(kickerMode)
 	{
 		case KICKER_MODE_ARM:
@@ -90,23 +108,7 @@ void Kicker::Act()
 
 void Kicker::Arm()
 {
-	//Set the power set point based on the buttons
-	if (kickerJoystick->GetRawButton(joystickSlowPowerButton))
-	{
-		setPoint = fullPowerSetPoint;
-	} else if (kickerJoystick->GetRawButton(joystickMedPowerButton)) {
-		setPoint = mediumPowerSetPoint;
-	} else if (kickerJoystick->GetRawButton(joystickFullPowerButton)) {
-		setPoint = lowPowerSetPoint;
-	} else {
-		//If not are pressed, retain the value or use the trigger pot.
-		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
-		if (manualValue > joystickKickManualActivationValue)
-		{
-			//Use the trigger value instead
-			setPoint = manualValue * minimumSetPoint;
-		}
-	}
+	lastSetPoint = setPoint;
 	
 	rollerOn = true;
 	
@@ -184,7 +186,7 @@ void Kicker::SetPower()
 		kickerResetEncoder = true;
 	}
 	
-	if (setPoint <= 0)
+	if (lastSetPoint <= 0)
 	{
 		//Stop the kicker, even if we're at zero and supposed to be there (this comment makes no sense)
 		EngageSailClutch(true);
