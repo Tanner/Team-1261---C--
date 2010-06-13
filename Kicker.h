@@ -22,10 +22,7 @@ class Kicker
 	
 	Joystick *kickerJoystick;
 	
-	bool kickerResetEncoder;
-	bool kickerHitSwitch;
-	bool kickerInPosition;
-	bool rollerOn;
+	bool kickerResetEncoder, kickerHitSwitch, kickerInPosition, rollerOn;
 	double setPoint;
 	int kickerMode;
 	
