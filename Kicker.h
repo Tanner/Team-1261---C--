@@ -35,9 +35,9 @@ class Kicker
 	const static int fullPowerBackwind = 1207;
 	const static int slowPowerBackwind = 808;
 	
-	const static int fullPowerSetPoint = 0;
-	const static int mediumPowerSetPoint = 150;
-	const static int lowPowerSetPoint = 300;
+	const static double fullPowerSetPoint = 0;
+	const static double mediumPowerSetPoint = 150;
+	const static double lowPowerSetPoint = 300;
 	
 	const static int minimumSetPoint = 600;
 	
