@@ -26,6 +26,7 @@ class Kicker
 	bool kickerHitSwitch;
 	bool kickerInPosition;
 	bool rollerOn;
+	bool kickerManualPower;
 	double setPoint, activeSetPoint;
 	int kickerMode;
 	

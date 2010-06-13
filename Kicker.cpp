@@ -34,6 +34,8 @@ Kicker::Kicker()
 	kickerHitSwitch = false;
 	kickerInPosition = false;
 	
+	kickerManualPower = false;
+	
 	kickerEncoder->Start();
 }
 
@@ -70,6 +72,9 @@ void Kicker::Act()
 	
 	MoveRoller(rollerOn);
 	
+	//Store the last set point when we use manual
+	static double previousSetPoint;
+	
 	//Set the power set point based on the buttons
 	if (kickerJoystick->GetRawButton(joystickSlowPowerButton))
 	{
@@ -80,11 +85,26 @@ void Kicker::Act()
 		setPoint = lowPowerSetPoint;
 	} else {
 		//If not are pressed, retain the value or use the trigger pot.
+		
 		double manualValue = fabs(kickerJoystick->GetRawAxis(joystickKickManualPowerAxis));
 		if (manualValue > joystickKickManualActivationValue)
 		{
+			//Check if we just were using the buttons, if so backup the setpoint
+			if (!kickerManualPower)
+			{
+				previousSetPoint = setPoint;
+				kickerManualPower = true;
+			}
+			
 			//Use the trigger value instead
 			setPoint = manualValue * minimumSetPoint;
+		} else {
+			//Non-manual power adjustment
+			if (kickerManualPower)
+			{
+				setPoint = previousSetPoint;
+				kickerManualPower = false;
+			}
 		}
 	}
 	
