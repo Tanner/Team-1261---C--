@@ -22,6 +22,8 @@ Kicker::Kicker()
 	
 	//Sensors
 	kickerEncoder = new Encoder(DIO_ENCODER_KICKER_A, DIO_ENCODER_KICKER_B);
+	kickerSwitch = new DigitalInput(DIO_KICKER_SWITCH);
+
 	rollerEncoder = new Encoder(DIO_ENCODER_ROLLER_A, DIO_ENCODER_ROLLER_B);
 	
 	kickerJoystick = new Joystick(JOYSTICK_KICK);
