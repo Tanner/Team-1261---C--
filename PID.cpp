@@ -24,9 +24,11 @@ PID::PID(float Kp, float Ki, float Kd, float period)
 	
 	result = 0;
 	
-	enabled = true;
-	
 	this->period = period;
+	
+	//Remove after done testing...
+	enabled = true;
+	continuous = true;
 }
 
 double PID::Calculate(double input)
