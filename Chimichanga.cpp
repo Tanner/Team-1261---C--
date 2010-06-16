@@ -124,7 +124,7 @@ public:
 
 		GetWatchdog().Feed();
 		
-		if (kicker->HasBall())
+		/*if (kicker->HasBall())
 		{
 			//We have a ball, thus stop moving and kick the ball
 			drivetrain->Drive(0.0, 0.0);
@@ -143,7 +143,9 @@ public:
 		}
 		
 		//Run the kicker
-		kicker->Act();
+		kicker->Act();*/
+		
+		drivetrain->ArcadeDrive(autonomousForwardPower, 0.0);
 	}
 	
 	void TeleopContinuous(void) {
