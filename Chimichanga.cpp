@@ -34,8 +34,8 @@ public:
 		drivetrain = new RobotDrive(PWM_DRIVE_FL, PWM_DRIVE_RL, PWM_DRIVE_FR, PWM_DRIVE_RR);
 		drivetrain->SetInvertedMotor(drivetrain->kFrontLeftMotor, false);
 		drivetrain->SetInvertedMotor(drivetrain->kRearLeftMotor, false);
-		drivetrain->SetInvertedMotor(drivetrain->kFrontRightMotor, true);
-		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, true);
+		drivetrain->SetInvertedMotor(drivetrain->kFrontRightMotor, false);
+		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, false);
 		
 		compressor = new Compressor(DIO_PRESSURE, RELAY_COMPRESSOR);
 		
@@ -124,7 +124,7 @@ public:
 
 		GetWatchdog().Feed();
 		
-		/*if (kicker->HasBall())
+		if (kicker->HasBall())
 		{
 			//We have a ball, thus stop moving and kick the ball
 			drivetrain->Drive(0.0, 0.0);
@@ -143,9 +143,7 @@ public:
 		}
 		
 		//Run the kicker
-		kicker->Act();*/
-		
-		drivetrain->ArcadeDrive(autonomousForwardPower, 0.0);
+		kicker->Act();
 	}
 	
 	void TeleopContinuous(void) {
@@ -154,10 +152,7 @@ public:
 		GetWatchdog().Feed();
 		
 		//Drive the robot
-		drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(4),driverJoystick->GetRawAxis(2));
-		
-		printf("Y Value: %f",driverJoystick->GetRawAxis(4));
-		printf("X Value: %f",driverJoystick->GetRawAxis(2));
+		drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(2) * -1,driverJoystick->GetRawAxis(4) * -1);
 		
 		//Run the kicker
 		kicker->Act();
