@@ -25,7 +25,7 @@ class Chimichanga : public IterativeRobot
 	
 	Kicker *kicker;
 	
-	static const float autonomousForwardPower = -0.5;
+	static const float autonomousForwardPower = 0.5;
 	
 public:
 	Chimichanga(void)
