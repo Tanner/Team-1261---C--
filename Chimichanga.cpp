@@ -156,6 +156,9 @@ public:
 		//Drive the robot
 		drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(4),driverJoystick->GetRawAxis(2));
 		
+		printf("Y Value: %f",driverJoystick->GetRawAxis(4));
+		printf("X Value: %f",driverJoystick->GetRawAxis(2));
+		
 		//Run the kicker
 		kicker->Act();
 	}
