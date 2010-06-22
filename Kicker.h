@@ -22,19 +22,16 @@ class Kicker
 	
 	Joystick *kickerJoystick;
 	
-	bool kickerResetEncoder;
-	bool kickerHitSwitch;
-	bool kickerInPosition;
-	bool rollerOn;
-	bool kickerManualPower;
+	bool kickerResetEncoder, kickerHitSwitch, kickerInPosition, rollerOn, kickerManualPower;
 	double setPoint, activeSetPoint;
+	
 	int kickerMode;
 	
 	const static int winchArmSpeed = 1;
 	const static int winchBackwindSpeed = -1;
 	
 	const static int fullPowerBackwind = 1207;
-	const static int slowPowerBackwind = 808;
+	const static int lowPowerBackwind = 808;
 	
 	const static int fullPowerSetPoint = 0;
 	const static int mediumPowerSetPoint = 150;
