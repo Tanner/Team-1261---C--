@@ -27,8 +27,7 @@ class Chimichanga : public IterativeRobot
 	Kicker *kicker;
 	
 	PID *drivePID;
-	
-	static const double autonomousForwardPower = -0.5;
+	static const float autonomousForwardPower = 0.5;
 	
 public:
 	Chimichanga(void)
@@ -37,8 +36,8 @@ public:
 		drivetrain = new RobotDrive(PWM_DRIVE_FL, PWM_DRIVE_RL, PWM_DRIVE_FR, PWM_DRIVE_RR);
 		drivetrain->SetInvertedMotor(drivetrain->kFrontLeftMotor, false);
 		drivetrain->SetInvertedMotor(drivetrain->kRearLeftMotor, false);
-		drivetrain->SetInvertedMotor(drivetrain->kFrontRightMotor, true);
-		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, true);
+		drivetrain->SetInvertedMotor(drivetrain->kFrontRightMotor, false);
+		drivetrain->SetInvertedMotor(drivetrain->kRearRightMotor, false);
 		
 		compressor = new Compressor(DIO_PRESSURE, RELAY_COMPRESSOR);
 		
@@ -68,7 +67,7 @@ public:
 		GetWatchdog().Feed();
 		
 		//Stop the presses...
-		drivetrain->Drive(0, 0);
+		drivetrain->Drive(0.0, 0.0);
 		compressor->Stop();
 		
 		printf("Robot disabled initialization complete.\n");
@@ -119,7 +118,7 @@ public:
 		GetWatchdog().Feed();
 		
 		//Stop the presses...
-		drivetrain->Drive(0, 0);
+		drivetrain->Drive(0.0, 0.0);
 		compressor->Stop();
 	}
 	
@@ -131,7 +130,7 @@ public:
 		if (kicker->HasBall())
 		{
 			//We have a ball, thus stop moving and kick the ball
-			drivetrain->Drive(0, 0);
+			drivetrain->Drive(0.0, 0.0);
 			kicker->SetKickerMode(KICKER_MODE_KICK);
 		} else {
 			//We do not have a ball
@@ -163,7 +162,7 @@ public:
 		drivetrain->TankDrive(0.0, pidResult);
 		printf("PID Result: %f\n", pidResult);
 		printf("Encoder Rate: %f out of %f\n", rightDrivetrainEncoder->GetRate(), 5000.0);
-		//drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(4),driverJoystick->GetRawAxis(2));
+		//drivetrain->ArcadeDrive(driverJoystick->GetRawAxis(2) * -1,driverJoystick->GetRawAxis(4) * -1);
 		
 		//Run the kicker
 		kicker->Act();
