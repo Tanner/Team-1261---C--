@@ -41,7 +41,7 @@ namespace
 	static const UINT32 JOYSTICK_DRIVE = 1;
 	static const UINT32 JOYSTICK_KICK = 2;
 	
-	//Kicker
+	//Kicker (here for Autonomous and Kicker access)
 	enum KickerModes
 	{
 		KICKER_MODE_STANDBY = 0,
