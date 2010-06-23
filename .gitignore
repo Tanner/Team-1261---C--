@@ -1,4 +1,11 @@
 #Ignore object files
 *.[oa]
-PPC603gnu/Chimichanga_partialImage/
-PPC603gnu/Chimichanga/
+
+#Ignore any project files
+.cproject
+.project
+.wrmakefile
+.wrproject
+
+#Ignore any output files
+PPC603gnu/
