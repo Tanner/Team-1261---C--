@@ -3,8 +3,6 @@
 
 /**
  * PID Class
- * 
- * YAY
  */
 class PID
 {
