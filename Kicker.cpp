@@ -37,6 +37,9 @@ Kicker::Kicker()
 	kickerEncoder->Start();
 }
 
+/**
+ * Makes the kicker do the right things at the right time depending on what is happening.
+ */
 void Kicker::Act()
 {
 	//Arm/Kick depending on the fire button on the kicker joystick
@@ -88,12 +91,15 @@ void Kicker::Act()
 	}
 }
 
+/**
+ * Arms the kicker and places it in the correct position for the current power setting.
+ */
 void Kicker::Arm()
 {
 	rollerOn = true;
 	
-	//Switch is false when pressed
-	if (!kickerSwitch->Get())
+	//Move the kicker up until we hit the max. power button
+	if (!kickerSwitch->Get()) //Switch is false when pressed
 	{
 		//Turn the motor off if we haven't already
 		if (!kickerHitSwitch)
@@ -102,10 +108,10 @@ void Kicker::Arm()
 		}
 		kickerHitSwitch = true;
 	}
-	
+
+	//Finalize the arming process
 	if (kickerHitSwitch)
 	{
-		//Finalize the arming process
 		if (kickerInPosition)
 		{
 			//Backwind the kicker for the actual kicking part
@@ -120,10 +126,12 @@ void Kicker::Arm()
 		winchMotor->Set(winchArmSpeed);
 		
 		setPoint = fabs(kickerJoystick->GetRawAxis(joystickKickPowerAxis)) * minimumSetPoint;
-		printf("Set Point: %f", setPoint);
 	}
 }
 
+/**
+ * Make the kicker kick and reset all the variables/states for another run.
+ */
 void Kicker::Kick()
 {
 	rollerOn = false;
@@ -137,6 +145,9 @@ void Kicker::Kick()
 	Reset();
 }
 
+/**
+ * When the kicker is armed, stop the kicker and wait.
+ */
 void Kicker::Armed()
 {
 	//Stop the winch from winching and turn on the roller so we can get balls...
@@ -144,6 +155,9 @@ void Kicker::Armed()
 	rollerOn = true;
 }
 
+/**
+ * Reset EVERYTHING for the kicker for another run. Including the kickerMode.
+ */
 void Kicker::Reset()
 {
 	//Reset everything for another run.
@@ -153,6 +167,9 @@ void Kicker::Reset()
 	kickerResetEncoder = false;
 }
 
+/**
+ * Resets ALMOST everything for the kicker for another run. Sets kickerMode to KICKER_MODE_ARMED.
+ */
 void Kicker::SafeReset()
 {
 	//Do a safe reset (i.e. don't do anything when we're done with this)
@@ -160,6 +177,9 @@ void Kicker::SafeReset()
 	kickerMode = KICKER_MODE_ARMED;
 }
 
+/**
+ * Move the kicker backwards into position where we need it to be for the current power setting.
+ */
 void Kicker::SetPower()
 {
 	//Reset the encoder if we need to
@@ -195,6 +215,10 @@ void Kicker::SetPower()
 	}
 }
 
+/**
+ * Engage the sail clutch that holds the kicker rope.
+ * @param engage Boolean value whether or not the sail clutch should be engaged.
+ */
 void Kicker::EngageSailClutch(bool engage)
 {
 	if (engage)
@@ -209,6 +233,10 @@ void Kicker::EngageSailClutch(bool engage)
 	}
 }
 
+/**
+ * Move the roller, but only if the rollerSwitch is not pressed.
+ * @param rollerOn Whether or not we want the roller to be on.
+ */
 void Kicker::MoveRoller(bool rollerOn)
 {
 	if (rollerOn)
@@ -224,6 +252,11 @@ void Kicker::MoveRoller(bool rollerOn)
 	}
 }
 
+/**
+ * Backwind the winch motor to let slack in the rope so the kicker will kick freely.
+ * 
+ * Calculated via the current kicker setting and fixed settings for high/low power backwinding.
+ */
 void Kicker::Backwind()
 {
 	EngageSailClutch(true);
@@ -252,16 +285,31 @@ void Kicker::Backwind()
 	}
 }
 
+/**
+ * Do we have a ball?
+ * 
+ * @return Whether or not the rollerSwitch is pressed.
+ */
 bool Kicker::HasBall()
 {
 	return !rollerSwitch->Get();
 }
 
+/**
+ * Is the kicker in position?
+ * 
+ * @return Whether or not the kicker is in position.
+ */
 bool Kicker::IsKickerInPosition()
 {
 	return kickerInPosition;
 }
 
+/**
+ * Set the kicker to a mode as defined in kickerMode.
+ * 
+ * @param mode The mode the kicker should be in.
+ */
 void Kicker::SetKickerMode(int mode)
 {
 	kickerMode = mode;
