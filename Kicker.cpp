@@ -239,6 +239,7 @@ void Kicker::EngageSailClutch(bool engage)
  */
 void Kicker::MoveRoller(bool rollerOn)
 {
+	printf("Roller Switch Value: %d\n",rollerSwitch->Get());
 	if (rollerOn)
 	{
 		if (rollerSwitch->Get())
